@@ -1,34 +1,19 @@
 'use client';
 
-import { Sparkles } from 'lucide-react';
-
 export default function HeroSection() {
   return (
-    <div className="pt-20 md:pt-32 pb-16 px-4 text-center">
-      {/* Badge */}
-      <div className="flex justify-center mb-8 animate-fadeIn">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass shadow-lg">
-          <Sparkles size={16} className="text-purple-600" />
-          <span className="text-sm font-semibold text-gray-700">AI PPT Maker</span>
-        </div>
-      </div>
-
-      {/* Main Heading */}
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-gray-900 animate-fadeIn text-balance" style={{ animationDelay: '0.1s' }}>
-        AI Powered <span className="bg-gradient-to-r from-purple-600 to-cyan-500 bg-clip-text text-transparent">PPT Generator</span>
+    <section className="mx-auto max-w-3xl text-center animate-fadeIn">
+      <h1 className="font-serif text-4xl leading-[1.1] tracking-[-0.01em] text-[var(--ink)] sm:text-5xl">
+        AI-Powered Presentation Builder
       </h1>
-
-      {/* Subtitle */}
-      <p className="text-lg md:text-xl text-gray-600 mb-12 max-w-2xl mx-auto animate-fadeIn text-balance" style={{ animationDelay: '0.2s' }}>
-        Create beautiful presentations in seconds. Just describe your idea, and let AI do the magic.
+      <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-[var(--ink-soft)] sm:text-xl">
+        Create beautiful presentations in seconds. Just describe your idea, and let our AI do the work.
       </p>
-
-      {/* Decorative dots */}
-      <div className="flex justify-center gap-2 animate-fadeIn" style={{ animationDelay: '0.3s' }}>
-        <div className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-purple-600 to-purple-400" />
-        <div className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400" />
-        <div className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-purple-600 to-purple-400" />
+      <div className="mt-8">
+        <span className="inline-flex h-10 items-center rounded-full border border-[var(--line)] bg-[#f5f2ed] px-6 text-base font-semibold text-[var(--ink-soft)] shadow-[0_6px_18px_rgba(56,42,26,0.08)]">
+          AI Slide Maker
+        </span>
       </div>
-    </div>
+    </section>
   );
 }

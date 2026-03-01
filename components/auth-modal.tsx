@@ -48,7 +48,7 @@ export default function AuthModal({ isOpen, onOpenChange, onLogin }: AuthModalPr
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md glass border-white/20">
+      <DialogContent className="sm:max-w-md bg-white border border-slate-200\">
         <DialogHeader>
           <DialogTitle className="text-gray-900">Welcome Back</DialogTitle>
           <DialogDescription className="text-gray-600">

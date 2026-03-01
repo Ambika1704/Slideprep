@@ -54,10 +54,10 @@ export default function PresentationBackground({
           <button
             key={style.id}
             onClick={() => onSelectStyle(style.id)}
-            className={`group relative card-lift rounded-2xl overflow-hidden transition-all duration-300 ${
+            className={`group relative rounded-lg overflow-hidden transition-all duration-300 ${
               selectedStyle === style.id
-                ? 'ring-2 ring-purple-500 shadow-xl shadow-purple-500/20'
-                : 'ring-1 ring-gray-200 hover:ring-purple-300'
+                ? 'ring-2 ring-gray-900 shadow-md'
+                : 'ring-1 ring-slate-300 hover:ring-slate-400'
             }`}
           >
             {/* Slide Preview Background */}
@@ -128,23 +128,20 @@ export default function PresentationBackground({
 
             {/* Selection Badge */}
             {selectedStyle === style.id && (
-              <div className="absolute top-3 right-3 bg-linear-to-r from-purple-500 to-cyan-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+              <div className="absolute top-3 right-3 bg-gray-900 text-white px-3 py-1 rounded text-xs font-semibold shadow-sm\">
                 Selected
               </div>
             )}
 
             {/* Description */}
-            <div className="p-4 bg-white">
-              <h3 className="font-semibold text-gray-900 text-sm mb-2">
+            <div className="p-4 bg-white border-t border-slate-200\">
+              <h3 className="font-semibold text-gray-900 text-sm mb-2\">
                 {style.name}
               </h3>
-              <p className="text-xs text-gray-600 line-clamp-2">
+              <p className="text-xs text-gray-600 line-clamp-2\">
                 {style.description}
               </p>
             </div>
-
-            {/* Hover glow effect */}
-            <div className="absolute inset-0 pointer-events-none rounded-2xl hover-glow" />
           </button>
         ))}
       </div>

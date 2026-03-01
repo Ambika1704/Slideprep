@@ -27,9 +27,9 @@ export default function SlidePreview({
       <div className="space-y-8">
         {/* Main Slide Display */}
         <div className="flex justify-center">
-          <div className={`relative w-full max-w-3xl aspect-video rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col justify-between transition-all duration-500 ${
+          <div className={`relative w-full max-w-3xl aspect-video rounded-lg shadow-lg p-8 md:p-12 flex flex-col justify-between transition-all duration-500 ${
             backgroundStyle === 'minimal-light'
-              ? 'glass'
+              ? 'bg-white border border-slate-200'
               : backgroundStyle === 'corporate-blue'
                 ? 'bg-gradient-to-r from-blue-50 to-white'
                 : backgroundStyle === 'gradient-modern'
@@ -56,11 +56,11 @@ export default function SlidePreview({
 
             {/* Elegant Academic - Navy border frame */}
             {backgroundStyle === 'elegant-academic' && (
-              <div className="absolute inset-0 border-4 border-blue-900/30 rounded-2xl pointer-events-none" />
+              <div className="absolute inset-0 border-4 border-blue-900/30 rounded-lg pointer-events-none\" />
             )}
 
             {/* Slide Number Badge */}
-            <div className="absolute top-4 right-4 gradient-button px-4 py-2 rounded-lg text-white text-sm font-semibold z-10">
+            <div className="absolute top-4 right-4 bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-semibold z-10\">
               {currentIndex + 1} / {slides.length}
             </div>
 
@@ -129,16 +129,16 @@ export default function SlidePreview({
               <button
                 key={index}
                 onClick={() => onSlideChange(index)}
-                className={`flex-shrink-0 w-40 h-28 rounded-xl border-2 transition-all duration-300 p-4 flex flex-col justify-between text-left ${
+                className={`flex-shrink-0 w-40 h-28 rounded-lg border-2 transition-all duration-300 p-4 flex flex-col justify-between text-left ${
                   currentIndex === index
-                    ? 'glass border-purple-500 shadow-lg shadow-purple-500/30'
-                    : 'glass border-gray-200 hover:border-purple-300 hover:shadow-lg'
+                    ? 'bg-white border-gray-900 shadow-md'
+                    : 'bg-slate-50 border-slate-300 hover:border-slate-400 hover:shadow-md'
                 }`}
               >
-                <div className="text-xs font-semibold text-purple-600">
+                <div className="text-xs font-semibold text-gray-700">
                   Slide {index + 1}
                 </div>
-                <div className="text-sm text-gray-700 font-medium truncate">
+                <div className="text-sm text-gray-600 font-medium truncate\">
                   {slide.split('\n')[0]}
                 </div>
               </button>
@@ -154,8 +154,8 @@ export default function SlidePreview({
               onClick={() => onSlideChange(index)}
               className={`h-2 rounded-full transition-all duration-300 ${
                 currentIndex === index
-                  ? 'bg-gradient-to-r from-purple-600 to-cyan-500 w-8'
-                  : 'bg-gray-300 w-2 hover:bg-gray-400'
+                  ? 'bg-gray-900 w-8'
+                  : 'bg-slate-300 w-2 hover:bg-slate-400'
               }`}
             />
           ))}

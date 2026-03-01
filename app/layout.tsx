@@ -1,12 +1,19 @@
 import type { Metadata } from 'next'
-import { Poppins } from 'next/font/google'
+import { DM_Sans, Cormorant_Garamond } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { AuthProvider } from '@/lib/auth-context'
 import './globals.css'
 
-const _poppins = Poppins({ 
+const dmSans = DM_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700']
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-sans',
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-serif',
 });
 
 export const metadata: Metadata = {
@@ -38,20 +45,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${dmSans.variable} ${cormorant.variable}`}>
       <body className="font-sans antialiased text-foreground min-h-screen overflow-x-hidden relative">
-        {/* Premium gradient background */}
-        <div className="fixed inset-0 -z-20 pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#EDE9FE] via-[#F0F9FF] to-[#ECFEFF]" />
-        </div>
-
-        {/* Radial glow effects in corners */}
-        <div className="fixed inset-0 -z-10 pointer-events-none">
-          <div className="absolute -top-40 -left-40 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl opacity-50" />
-          <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-cyan-300/20 rounded-full blur-3xl opacity-50" />
-          <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-pink-300/10 rounded-full blur-3xl opacity-40" />
-        </div>
-
         <AuthProvider>
           {children}
         </AuthProvider>

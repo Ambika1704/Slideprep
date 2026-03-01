@@ -8,8 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
-import { Clock, LogOut, User } from 'lucide-react';
+import { Clock3, LogOut } from 'lucide-react';
 
 interface UserMenuProps {
   onOpenHistory: () => void;
@@ -23,37 +22,43 @@ export default function UserMenu({ onOpenHistory }: UserMenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button 
-          variant="outline"
-          className="gap-2 rounded-xl border-white/20 bg-white/40 hover:bg-white/60 text-gray-900"
+        <button
+          type="button"
+          className="flex h-11 items-center gap-2 rounded-full bg-[var(--paper-2)] px-2 pr-4 text-[15px] text-[var(--ink)] hover:bg-[#e7dfd4]"
         >
-          <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 flex items-center justify-center text-white font-bold text-sm">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[linear-gradient(130deg,#9a6ce8,#21c6d5)] text-base font-semibold text-white">
             {user.name[0].toUpperCase()}
-          </div>
-          <span className="hidden sm:inline">{user.name}</span>
-        </Button>
+          </span>
+          <span className="max-w-24 truncate">{user.name}</span>
+        </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48 glass border-white/20">
-        <div className="px-2 py-1.5">
-          <p className="text-xs font-semibold text-gray-600">Signed in as</p>
-          <p className="text-sm font-medium text-gray-900">{user.email}</p>
+
+      <DropdownMenuContent
+        align="end"
+        className="w-60 rounded-2xl border border-[var(--line)] bg-[var(--panel)] p-0 text-[var(--ink)] shadow-[0_8px_20px_rgba(53,39,24,0.12)]"
+      >
+        <div className="px-4 pb-3 pt-3">
+          <p className="text-sm font-semibold leading-none text-[var(--ink-soft)]">Signed in as</p>
+          <p className="mt-2 truncate text-[15px] leading-none text-[var(--ink)]">{user.email}</p>
         </div>
-        <DropdownMenuSeparator className="bg-white/10" />
-        <DropdownMenuItem 
-          onClick={onOpenHistory}
-          className="gap-2 text-gray-900 cursor-pointer"
-        >
-          <Clock className="h-4 w-4" />
-          <span>View History</span>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator className="bg-white/10" />
-        <DropdownMenuItem 
-          onClick={logout}
-          className="gap-2 text-red-600 cursor-pointer"
-        >
-          <LogOut className="h-4 w-4" />
-          <span>Sign Out</span>
-        </DropdownMenuItem>
+        <DropdownMenuSeparator className="bg-[var(--line)]" />
+        <div className="p-2">
+          <DropdownMenuItem
+            onClick={onOpenHistory}
+            className="h-11 cursor-pointer rounded-xl text-[15px] text-[var(--ink)] outline-none focus:bg-[var(--paper-2)]"
+          >
+            <Clock3 className="mr-2 h-5 w-5 text-[var(--ink-soft)]" />
+            View History
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            onClick={logout}
+            className="mt-1 h-11 cursor-pointer rounded-xl text-[15px] text-red-600 outline-none focus:bg-red-50"
+          >
+            <LogOut className="mr-2 h-5 w-5 text-[var(--ink-soft)]" />
+            Sign Out
+          </DropdownMenuItem>
+        </div>
       </DropdownMenuContent>
     </DropdownMenu>
   );

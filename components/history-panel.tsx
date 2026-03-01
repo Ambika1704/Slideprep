@@ -31,8 +31,8 @@ export default function HistoryPanel({
 }: HistoryPanelProps) {
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-full sm:w-96 glass border-white/20 p-0">
-        <SheetHeader className="px-6 pt-6 pb-4 border-b border-white/10">
+      <SheetContent side="right" className="w-full sm:w-96 bg-white border-l border-slate-200 p-0">
+        <SheetHeader className="px-6 pt-6 pb-4 border-b border-slate-200\">
           <SheetTitle className="text-gray-900">Generation History</SheetTitle>
           <SheetDescription className="text-gray-600">
             Your past presentations ({history.length})
@@ -58,18 +58,18 @@ export default function HistoryPanel({
                       onSelectHistory(item);
                       onOpenChange(false);
                     }}
-                    className="w-full text-left p-4 rounded-xl bg-white/40 hover:bg-white/60 transition-colors border border-white/20 hover:border-purple-300/50 group"
+                    className="w-full text-left p-4 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-200 group"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold text-gray-900 truncate text-sm group-hover:text-purple-600 transition-colors">
+                        <h4 className="font-semibold text-gray-900 truncate text-sm group-hover:text-gray-700 transition-colors">
                           {item.topic}
                         </h4>
                         <div className="flex items-center gap-2 mt-2 text-xs text-gray-600 flex-wrap">
-                          <span className="bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">
+                          <span className="bg-slate-200 text-gray-700 px-2 py-0.5 rounded">
                             {item.slideCount} slides
                           </span>
-                          <span className="capitalize bg-cyan-100 text-cyan-700 px-2 py-0.5 rounded-full">
+                          <span className="capitalize bg-slate-200 text-gray-700 px-2 py-0.5 rounded">
                             {item.tone}
                           </span>
                           <span className="text-gray-500">{item.createdAt}</span>
@@ -90,7 +90,7 @@ export default function HistoryPanel({
               </div>
             </ScrollArea>
 
-            <div className="px-6 py-4 border-t border-white/10">
+            <div className="px-6 py-4 border-t border-slate-200">
               <Button
                 onClick={onClearAll}
                 variant="outline"

@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Sparkles, Loader2 } from 'lucide-react';
+import { Loader2, Sparkles } from 'lucide-react';
 
 interface GeneratorCardProps {
   onGenerate: (topic: string, slideCount: number, tone: string) => void;
@@ -25,11 +25,11 @@ export default function GeneratorCard({ onGenerate, isGenerating }: GeneratorCar
 
   const handleSubmit = () => {
     if (topic.trim()) {
-      onGenerate(topic, parseInt(slideCount), tone);
+      onGenerate(topic, parseInt(slideCount, 10), tone);
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !isGenerating && topic.trim()) {
       handleSubmit();
     }
@@ -37,11 +37,10 @@ export default function GeneratorCard({ onGenerate, isGenerating }: GeneratorCar
 
   return (
     <div className="animate-slideIn">
-      <div className="glass rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
-        <div className="space-y-6">
-          {/* Topic Input */}
+      <div className="rounded-[26px] border border-[var(--line)] bg-[var(--panel)] p-6 shadow-[0_18px_40px_rgba(63,46,24,0.08)] sm:p-8">
+        <div className="space-y-8">
           <div className="space-y-3">
-            <Label htmlFor="topic" className="text-gray-800 font-semibold text-sm">
+            <Label htmlFor="topic" className="text-2xl font-semibold text-[var(--ink)] sm:text-3xl">
               Presentation Topic
             </Label>
             <Input
@@ -49,26 +48,27 @@ export default function GeneratorCard({ onGenerate, isGenerating }: GeneratorCar
               placeholder="e.g., Machine Learning Basics, Digital Marketing Strategy..."
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
-              onKeyPress={handleKeyPress}
-              className="bg-white/80 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-purple-500 focus:ring-purple-500/20 h-12 text-base rounded-xl transition-all"
+              onKeyDown={handleKeyDown}
+              className="h-14 rounded-2xl border-[var(--line)] bg-[var(--paper)] px-5 text-base text-[var(--ink-soft)] placeholder:text-[#a29a90] focus-visible:ring-0"
               disabled={isGenerating}
             />
           </div>
 
-          {/* Controls Row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Slide Count */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="space-y-3">
-              <Label htmlFor="slides" className="text-gray-800 font-semibold text-sm">
+              <Label htmlFor="slides" className="text-lg font-semibold text-[var(--ink)] sm:text-xl">
                 Number of Slides
               </Label>
               <Select value={slideCount} onValueChange={setSlideCount} disabled={isGenerating}>
-                <SelectTrigger id="slides" className="bg-white/80 border-gray-200 text-gray-900 focus:border-purple-500 focus:ring-purple-500/20 h-11 rounded-xl">
+                <SelectTrigger
+                  id="slides"
+                  className="h-11 rounded-2xl border-[var(--line)] bg-[var(--paper)] px-4 text-base text-[var(--ink)] focus:ring-0"
+                >
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-white border-gray-200">
+                <SelectContent className="border-[var(--line)] bg-[var(--paper)] text-[var(--ink)]">
                   {[3, 5, 7, 10, 15, 20].map((num) => (
-                    <SelectItem key={num} value={num.toString()} className="text-gray-900">
+                    <SelectItem key={num} value={num.toString()}>
                       {num} Slides
                     </SelectItem>
                   ))}
@@ -76,29 +76,30 @@ export default function GeneratorCard({ onGenerate, isGenerating }: GeneratorCar
               </Select>
             </div>
 
-            {/* Tone Select */}
             <div className="space-y-3">
-              <Label htmlFor="tone" className="text-gray-800 font-semibold text-sm">
+              <Label htmlFor="tone" className="text-lg font-semibold text-[var(--ink)] sm:text-xl">
                 Presentation Tone
               </Label>
               <Select value={tone} onValueChange={setTone} disabled={isGenerating}>
-                <SelectTrigger id="tone" className="bg-white/80 border-gray-200 text-gray-900 focus:border-purple-500 focus:ring-purple-500/20 h-11 rounded-xl">
+                <SelectTrigger
+                  id="tone"
+                  className="h-11 rounded-2xl border-[var(--line)] bg-[var(--paper)] px-4 text-base text-[var(--ink)] focus:ring-0"
+                >
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-white border-gray-200">
-                  <SelectItem value="formal" className="text-gray-900">Formal</SelectItem>
-                  <SelectItem value="creative" className="text-gray-900">Creative</SelectItem>
-                  <SelectItem value="academic" className="text-gray-900">Academic</SelectItem>
+                <SelectContent className="border-[var(--line)] bg-[var(--paper)] text-[var(--ink)]">
+                  <SelectItem value="formal">Formal</SelectItem>
+                  <SelectItem value="creative">Creative</SelectItem>
+                  <SelectItem value="academic">Academic</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
-          {/* Generate Button */}
           <Button
             onClick={handleSubmit}
             disabled={isGenerating || !topic.trim()}
-            className="w-full h-12 text-base font-semibold rounded-xl gradient-button shadow-lg hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="h-14 w-full rounded-2xl bg-[#ddd2c4] text-xl font-semibold text-[var(--ink)] hover:bg-[#d2c3b0] disabled:opacity-50"
           >
             {isGenerating ? (
               <>
@@ -112,16 +113,6 @@ export default function GeneratorCard({ onGenerate, isGenerating }: GeneratorCar
               </>
             )}
           </Button>
-
-          {/* Progress bar */}
-          {isGenerating && (
-            <div className="space-y-2">
-              <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-purple-500 to-cyan-500 animate-pulse rounded-full" />
-              </div>
-              <p className="text-center text-sm text-gray-600">Creating your presentation...</p>
-            </div>
-          )}
         </div>
       </div>
     </div>
