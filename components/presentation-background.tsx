@@ -64,11 +64,11 @@ export default function PresentationBackground({
             <div
               className={`relative h-48 w-full overflow-hidden ${
                 style.id === 'minimal-light'
-                  ? 'bg-gradient-to-br from-gray-50 to-gray-100'
+                  ? 'bg-linear-to-br from-gray-50 to-gray-100'
                   : style.id === 'corporate-blue'
-                    ? 'bg-gradient-to-r from-blue-50 to-white'
+                    ? 'bg-linear-to-r from-blue-50 to-white'
                     : style.id === 'gradient-modern'
-                      ? 'bg-gradient-to-br from-purple-400 via-cyan-300 to-cyan-200'
+                      ? 'bg-linear-to-br from-purple-400 via-cyan-300 to-cyan-200'
                       : 'bg-yellow-50'
               }`}
             >
@@ -128,7 +128,7 @@ export default function PresentationBackground({
 
             {/* Selection Badge */}
             {selectedStyle === style.id && (
-              <div className="absolute top-3 right-3 bg-gradient-to-r from-purple-500 to-cyan-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+              <div className="absolute top-3 right-3 bg-linear-to-r from-purple-500 to-cyan-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
                 Selected
               </div>
             )}
