@@ -57,41 +57,50 @@ export default function RecentSlides({ slides }: RecentSlidesProps) {
 
   return (
     <div className="animate-slideIn">
-      <div className="mb-8">
-        <h2 className="font-serif text-2xl font-semibold text-[var(--ink)] sm:text-3xl">
+      <div className="mb-12">
+        <h2 className="font-serif text-3xl font-semibold text-[var(--ink)]">
           Recent Slides
         </h2>
       </div>
 
-      <div className="flex items-center justify-between gap-4">
+      <div className="space-y-8">
         {/* Slides Grid */}
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {getVisibleSlides().map((slide) => (
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {getVisibleSlides().map((slide, idx) => (
             <button
               key={slide.id}
-              className="group relative rounded-2xl border border-[var(--line)] bg-[var(--paper)] p-6 text-left transition-all duration-300 hover:shadow-[0_12px_24px_rgba(56,42,26,0.08)] hover:border-[var(--ink-soft)]"
+              className="group relative overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--paper)] p-8 text-left transition-all duration-300 hover:shadow-[0_16px_32px_rgba(56,42,26,0.12)] hover:border-[#c8b9a5]"
+              style={{
+                animation: `slideIn 0.5s ease-out both ${0.1 * idx}s`,
+              }}
             >
-              <h3 className="font-serif text-base font-semibold text-[var(--ink)] line-clamp-3 group-hover:text-[#2a2622]">
-                {slide.title}
-              </h3>
-              {slide.date && (
-                <p className="mt-3 text-sm text-[var(--ink-soft)]">{slide.date}</p>
-              )}
+              {/* Subtle background accent */}
+              <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-gradient-to-br from-[rgba(222,212,197,0.3)] to-transparent blur-2xl" />
+              
+              <div className="relative z-10">
+                <h3 className="font-serif text-lg font-semibold text-[var(--ink)] leading-tight group-hover:text-[#2a2622] transition-colors">
+                  {slide.title}
+                </h3>
+                {slide.date && (
+                  <p className="mt-4 text-sm text-[var(--ink-soft)] font-medium">{slide.date}</p>
+                )}
+              </div>
             </button>
           ))}
         </div>
 
-        {/* Navigation Dots */}
-        <div className="flex flex-col items-center gap-4 md:gap-6">
-          <div className="flex gap-1.5">
+        {/* Navigation Controls */}
+        <div className="flex items-center justify-center gap-8">
+          {/* Navigation Dots */}
+          <div className="flex gap-2">
             {displaySlides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`h-1.5 rounded-full transition-all ${
+                className={`rounded-full transition-all duration-300 ${
                   index === currentIndex
-                    ? 'w-6 bg-[var(--ink)]'
-                    : 'w-1.5 bg-[var(--line)] hover:bg-[var(--ink-soft)]'
+                    ? 'h-2 w-6 bg-[var(--ink)]'
+                    : 'h-2 w-2 bg-[var(--line)] hover:bg-[var(--ink-soft)]'
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
@@ -99,24 +108,24 @@ export default function RecentSlides({ slides }: RecentSlidesProps) {
           </div>
 
           {/* Navigation Buttons */}
-          <div className="hidden sm:flex flex-col gap-2">
+          <div className="hidden sm:flex gap-3">
             <Button
               onClick={handlePrev}
               variant="ghost"
               size="sm"
-              className="h-8 w-8 rounded-full p-0 text-[var(--ink-soft)] hover:bg-[var(--paper-2)] hover:text-[var(--ink)]"
+              className="h-9 w-9 rounded-full p-0 text-[var(--ink-soft)] hover:bg-[#ddd2c4] hover:text-[var(--ink)] transition-colors"
               aria-label="Previous slide"
             >
-              <ChevronLeft className="h-4 w-4" />
+              <ChevronLeft className="h-5 w-5" />
             </Button>
             <Button
               onClick={handleNext}
               variant="ghost"
               size="sm"
-              className="h-8 w-8 rounded-full p-0 text-[var(--ink-soft)] hover:bg-[var(--paper-2)] hover:text-[var(--ink)]"
+              className="h-9 w-9 rounded-full p-0 text-[var(--ink-soft)] hover:bg-[#ddd2c4] hover:text-[var(--ink)] transition-colors"
               aria-label="Next slide"
             >
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="h-5 w-5" />
             </Button>
           </div>
         </div>
