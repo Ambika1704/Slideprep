@@ -6,7 +6,6 @@ import { useGenerationHistory, GenerationRecord } from '@/hooks/use-generation-h
 import HeroSection from '@/components/hero-section';
 import GeneratorCard from '@/components/generator-card';
 import PresentationBackground from '@/components/presentation-background';
-import RecentSlides from '@/components/recent-slides';
 import SlidePreview from '@/components/slide-preview';
 import AuthModal from '@/components/auth-modal';
 import HistoryPanel from '@/components/history-panel';
@@ -56,14 +55,14 @@ export default function Home() {
   return (
     <div className="min-h-screen px-2 py-3 sm:px-4 sm:py-4">
       <div className="paper-frame mx-auto max-w-[1200px] overflow-hidden">
-        <header className="border-b border-[var(--line)] bg-[var(--paper)]">
+        <header className="border-b border-slate-700/50 bg-slate-900/50 backdrop-blur-sm">
           <div className="mx-auto flex h-16 items-center justify-between px-5 sm:px-8">
-            <div className="font-serif text-3xl leading-none text-[var(--ink)]">AI PPT</div>
+            <div className="font-sans text-2xl font-bold text-white">AI PPT</div>
             <div className="flex items-center gap-2 sm:gap-4">
               <Button
                 onClick={() => setIsHistoryOpen(true)}
                 variant="ghost"
-                className="h-9 gap-2 rounded-full px-3 text-[15px] font-medium text-[var(--ink-soft)] hover:bg-[var(--paper-2)] hover:text-[var(--ink)]"
+                className="h-9 gap-2 rounded-full px-3 text-[15px] font-medium text-slate-300 hover:bg-slate-700/50 hover:text-white"
               >
                 <Clock className="h-4 w-4" />
                 <span>History</span>
@@ -75,7 +74,7 @@ export default function Home() {
                 <Button
                   onClick={() => setIsAuthModalOpen(true)}
                   variant="ghost"
-                  className="h-9 gap-2 rounded-full px-3 text-[15px] font-medium text-[var(--ink-soft)] hover:bg-[var(--paper-2)] hover:text-[var(--ink)]"
+                  className="h-9 gap-2 rounded-full px-3 text-[15px] font-medium text-slate-300 hover:bg-slate-700/50 hover:text-white"
                 >
                   <LogIn className="h-4 w-4" />
                   <span>Sign in</span>
@@ -89,15 +88,11 @@ export default function Home() {
           <div className="hero-wash absolute inset-0" />
           <div className="relative px-4 pb-16 pt-10 sm:px-10 sm:pb-20 sm:pt-14">
             <HeroSection />
-            <div className="mx-auto mt-7 max-w-3xl">
+            <div className="mx-auto mt-12 max-w-3xl">
               <GeneratorCard onGenerate={handleGenerate} isGenerating={isGenerating} />
             </div>
 
-            <div className="mx-auto mt-16 max-w-3xl">
-              <RecentSlides />
-            </div>
-
-            <div className="mx-auto mt-16 max-w-6xl">
+            <div className="mx-auto mt-20 max-w-6xl">
               <PresentationBackground
                 selectedStyle={selectedBackgroundStyle}
                 onSelectStyle={setSelectedBackgroundStyle}
