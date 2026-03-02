@@ -21,113 +21,98 @@ export default function RecentSlides({ slides }: RecentSlidesProps) {
     {
       id: '1',
       title: "Beginner's Guide to Machine Learning",
-      date: '2 days ago',
     },
     {
       id: '2',
       title: 'Social Media Marketing Tomorrow',
-      date: '1 week ago',
     },
     {
       id: '3',
       title: 'The Future of Remote Work',
-      date: '2 weeks ago',
     },
   ];
 
   const displaySlides = slides && slides.length > 0 ? slides : defaultSlides;
+  const itemsPerPage = 3;
+  const totalPages = Math.ceil(displaySlides.length / itemsPerPage);
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? displaySlides.length - 1 : prev - 1));
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - itemsPerPage);
+    }
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev === displaySlides.length - 1 ? 0 : prev + 1));
+    if (currentIndex + itemsPerPage < displaySlides.length) {
+      setCurrentIndex(currentIndex + itemsPerPage);
+    }
   };
 
   const getVisibleSlides = () => {
-    const visibleCount = 3;
-    const slides = [];
-    for (let i = 0; i < visibleCount; i++) {
-      const index = (currentIndex + i) % displaySlides.length;
-      slides.push(displaySlides[index]);
-    }
-    return slides;
+    return displaySlides.slice(currentIndex, currentIndex + itemsPerPage);
   };
 
+  const currentPage = Math.floor(currentIndex / itemsPerPage);
+
   return (
-    <div className="animate-slideIn">
-      <div className="mb-12">
-        <h2 className="font-serif text-3xl font-semibold text-[var(--ink)]">
-          Recent Slides
-        </h2>
+    <div className="space-y-6">
+      <h2 className="text-xl font-semibold text-[var(--ink)]">Recent Slides</h2>
+
+      {/* Slides Grid */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        {getVisibleSlides().map((slide) => (
+          <button
+            key={slide.id}
+            className="rounded-2xl border border-[var(--line)] bg-[var(--paper)] p-6 text-left transition-all hover:shadow-md hover:border-[#c8b9a5]"
+          >
+            <h3 className="text-base font-semibold text-[var(--ink)] line-clamp-2">
+              {slide.title}
+            </h3>
+            {slide.date && (
+              <p className="mt-3 text-sm text-[var(--ink-soft)]">{slide.date}</p>
+            )}
+          </button>
+        ))}
       </div>
 
-      <div className="space-y-8">
-        {/* Slides Grid */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {getVisibleSlides().map((slide, idx) => (
+      {/* Navigation */}
+      <div className="flex items-center justify-center gap-4">
+        <div className="flex gap-1.5">
+          {Array.from({ length: totalPages }).map((_, index) => (
             <button
-              key={slide.id}
-              className="group relative overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--paper)] p-8 text-left transition-all duration-300 hover:shadow-[0_16px_32px_rgba(56,42,26,0.12)] hover:border-[#c8b9a5]"
-              style={{
-                animation: `slideIn 0.5s ease-out both ${0.1 * idx}s`,
-              }}
-            >
-              {/* Subtle background accent */}
-              <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-gradient-to-br from-[rgba(222,212,197,0.3)] to-transparent blur-2xl" />
-              
-              <div className="relative z-10">
-                <h3 className="font-serif text-lg font-semibold text-[var(--ink)] leading-tight group-hover:text-[#2a2622] transition-colors">
-                  {slide.title}
-                </h3>
-                {slide.date && (
-                  <p className="mt-4 text-sm text-[var(--ink-soft)] font-medium">{slide.date}</p>
-                )}
-              </div>
-            </button>
+              key={index}
+              onClick={() => setCurrentIndex(index * itemsPerPage)}
+              className={`rounded-full transition-all ${
+                index === currentPage
+                  ? 'h-1.5 w-5 bg-[var(--ink)]'
+                  : 'h-1.5 w-1.5 bg-[var(--line)] hover:bg-[var(--ink-soft)]'
+              }`}
+              aria-label={`Go to page ${index + 1}`}
+            />
           ))}
         </div>
 
-        {/* Navigation Controls */}
-        <div className="flex items-center justify-center gap-8">
-          {/* Navigation Dots */}
-          <div className="flex gap-2">
-            {displaySlides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? 'h-2 w-6 bg-[var(--ink)]'
-                    : 'h-2 w-2 bg-[var(--line)] hover:bg-[var(--ink-soft)]'
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
-
-          {/* Navigation Buttons */}
-          <div className="hidden sm:flex gap-3">
-            <Button
-              onClick={handlePrev}
-              variant="ghost"
-              size="sm"
-              className="h-9 w-9 rounded-full p-0 text-[var(--ink-soft)] hover:bg-[#ddd2c4] hover:text-[var(--ink)] transition-colors"
-              aria-label="Previous slide"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </Button>
-            <Button
-              onClick={handleNext}
-              variant="ghost"
-              size="sm"
-              className="h-9 w-9 rounded-full p-0 text-[var(--ink-soft)] hover:bg-[#ddd2c4] hover:text-[var(--ink)] transition-colors"
-              aria-label="Next slide"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </Button>
-          </div>
+        <div className="hidden gap-2 sm:flex">
+          <Button
+            onClick={handlePrev}
+            disabled={currentIndex === 0}
+            variant="ghost"
+            size="sm"
+            className="h-8 w-8 rounded-full p-0 text-[var(--ink-soft)] hover:bg-[#f5f3ef] disabled:opacity-30"
+            aria-label="Previous page"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button
+            onClick={handleNext}
+            disabled={currentIndex + itemsPerPage >= displaySlides.length}
+            variant="ghost"
+            size="sm"
+            className="h-8 w-8 rounded-full p-0 text-[var(--ink-soft)] hover:bg-[#f5f3ef] disabled:opacity-30"
+            aria-label="Next page"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
         </div>
       </div>
     </div>

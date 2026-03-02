@@ -37,52 +37,85 @@ export default function GeneratorCard({ onGenerate, isGenerating }: GeneratorCar
 
   return (
     <div className="animate-slideIn">
-      <div className="overflow-hidden rounded-3xl border border-[var(--line)] bg-[var(--panel)] shadow-[0_20px_48px_rgba(63,46,24,0.1)] backdrop-blur-sm">
-        <div className="relative p-8 sm:p-10">
-          {/* Subtle background gradient accent */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-gradient-to-br from-[rgba(222,212,197,0.2)] to-transparent blur-3xl" />
+      <div className="rounded-3xl border border-[var(--line)] bg-[var(--panel)] p-8 sm:p-10">
+        <div className="space-y-8">
+          {/* Topic Input */}
+          <div className="space-y-4">
+            <Label htmlFor="topic" className="text-xl font-semibold text-[var(--ink)]">
+              Presentation Topic
+            </Label>
+            <Input
+              id="topic"
+              placeholder="e.g., Machine Learning Basics, Digital Marketing Strategy..."
+              value={topic}
+              onChange={(e) => setTopic(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="h-12 rounded-2xl border border-[var(--line)] bg-[var(--paper)] px-5 text-base text-[var(--ink)] placeholder:text-[#a29a90] focus-visible:ring-0 focus-visible:border-[#c8b9a5]"
+              disabled={isGenerating}
+            />
           </div>
 
-          <div className="relative space-y-8">
-            <div className="space-y-4">
-              <Label htmlFor="topic" className="text-2xl font-semibold text-[var(--ink)]">
-                Presentation Topic
+          {/* Options Grid */}
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+            <div className="space-y-3">
+              <Label htmlFor="slides" className="text-lg font-semibold text-[var(--ink)]">
+                Number of Slides
               </Label>
-              <Input
-                id="topic"
-                placeholder="e.g., Machine Learning Basics, Digital Marketing Strategy..."
-                value={topic}
-                onChange={(e) => setTopic(e.target.value)}
-                onKeyDown={handleKeyDown}
-                className="h-14 rounded-2xl border border-[var(--line)] bg-[var(--paper)] px-5 text-base text-[var(--ink)] placeholder:text-[#a29a90] focus-visible:ring-1 focus-visible:ring-[#c8b9a5] transition-all hover:border-[#c8b9a5]"
-                disabled={isGenerating}
-              />
+              <Select value={slideCount} onValueChange={setSlideCount} disabled={isGenerating}>
+                <SelectTrigger
+                  id="slides"
+                  className="h-11 rounded-2xl border border-[var(--line)] bg-[var(--paper)] px-4 text-base text-[var(--ink)] focus:ring-0"
+                >
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="border border-[var(--line)] bg-[var(--paper)] text-[var(--ink)]">
+                  {[3, 5, 7, 10, 15, 20].map((num) => (
+                    <SelectItem key={num} value={num.toString()}>
+                      {num} Slides
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-              <div className="sm:col-span-2" />
-              <div className="flex justify-end">
-                <Button
-                  onClick={handleSubmit}
-                  disabled={isGenerating || !topic.trim()}
-                  className="h-12 w-full rounded-xl bg-[#ddd2c4] text-base font-semibold text-[var(--ink)] hover:bg-[#d2c3b0] disabled:opacity-50 transition-colors shadow-[0_8px_16px_rgba(56,42,26,0.12)]"
+            <div className="space-y-3">
+              <Label htmlFor="tone" className="text-lg font-semibold text-[var(--ink)]">
+                Presentation Tone
+              </Label>
+              <Select value={tone} onValueChange={setTone} disabled={isGenerating}>
+                <SelectTrigger
+                  id="tone"
+                  className="h-11 rounded-2xl border border-[var(--line)] bg-[var(--paper)] px-4 text-base text-[var(--ink)] focus:ring-0"
                 >
-                  {isGenerating ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Generating...
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="mr-2 h-4 w-4" />
-                      Generate Slides
-                    </>
-                  )}
-                </Button>
-              </div>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="border border-[var(--line)] bg-[var(--paper)] text-[var(--ink)]">
+                  <SelectItem value="formal">Formal</SelectItem>
+                  <SelectItem value="creative">Creative</SelectItem>
+                  <SelectItem value="academic">Academic</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
+
+          {/* Generate Button */}
+          <Button
+            onClick={handleSubmit}
+            disabled={isGenerating || !topic.trim()}
+            className="h-14 w-full rounded-2xl bg-[#ddd2c4] text-lg font-medium text-[var(--ink)] hover:bg-[#d2c3b0] disabled:opacity-50 transition-colors"
+          >
+            {isGenerating ? (
+              <>
+                <Loader2 className="mr-3 h-5 w-5 animate-spin" />
+                Generating...
+              </>
+            ) : (
+              <>
+                <Sparkles className="mr-3 h-5 w-5" />
+                Generate PPT
+              </>
+            )}
+          </Button>
         </div>
       </div>
     </div>
