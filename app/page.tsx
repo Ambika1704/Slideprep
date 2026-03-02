@@ -6,6 +6,7 @@ import { useGenerationHistory, GenerationRecord } from '@/hooks/use-generation-h
 import HeroSection from '@/components/hero-section';
 import GeneratorCard from '@/components/generator-card';
 import PresentationBackground from '@/components/presentation-background';
+import RecentSlides from '@/components/recent-slides';
 import SlidePreview from '@/components/slide-preview';
 import AuthModal from '@/components/auth-modal';
 import HistoryPanel from '@/components/history-panel';
@@ -92,7 +93,11 @@ export default function Home() {
               <GeneratorCard onGenerate={handleGenerate} isGenerating={isGenerating} />
             </div>
 
-            <div className="mx-auto mt-12 max-w-6xl">
+            <div className="mx-auto mt-16 max-w-4xl">
+              <RecentSlides />
+            </div>
+
+            <div className="mx-auto mt-16 max-w-6xl">
               <PresentationBackground
                 selectedStyle={selectedBackgroundStyle}
                 onSelectStyle={setSelectedBackgroundStyle}
